@@ -17,21 +17,91 @@
 # PHASE 8
 # MODEL EVALUATION
 # ==========================================
+# PHASE 9
+# AI CACHE POLICY PREDICTION
+# ==========================================
 
-from ml.evaluate_model import evaluate_model
+from simulator.workloads import (
+    random_workload,
+    sequential_workload,
+    repetitive_workload,
+    mixed_workload
+)
+
+from ml.predictor import predict_policy
 
 
 print("========================================")
 print(" AI CACHE PROJECT")
-print(" PHASE 8 - MODEL EVALUATION")
+print(" PHASE 9 - AI POLICY PREDICTION")
 print("========================================")
 
 
-# Evaluate the best ML model
-accuracy = evaluate_model()
+# ==========================================
+# GENERATE NEW WORKLOAD
+# ==========================================
+
+requests = mixed_workload(100)
+
+
+print("\nNew Workload Generated!")
+
+print("\nFirst 20 Memory Requests:")
+print(requests[:20])
+
+
+# ==========================================
+# AI PREDICTION
+# ==========================================
+
+predicted_policy, features = predict_policy(
+    requests
+)
+
+
+# ==========================================
+# DISPLAY FEATURES
+# ==========================================
+
+print("\n========================================")
+print(" WORKLOAD FEATURES")
+print("========================================")
+
+print(
+    "Unique Count :",
+    features["unique_count"]
+)
+
+print(
+    "Repetition Ratio :",
+    features["repetition_ratio"]
+)
+
+print(
+    "Sequentiality :",
+    features["sequentiality"]
+)
+
+print(
+    "Frequency Variance :",
+    features["frequency_variance"]
+)
+
+
+# ==========================================
+# DISPLAY AI PREDICTION
+# ==========================================
+
+print("\n========================================")
+print(" AI PREDICTION")
+print("========================================")
+
+print(
+    "Predicted Best Cache Policy :",
+    predicted_policy
+)
 
 
 print("\n========================================")
-print(" PHASE 8 COMPLETED")
-print(f" FINAL MODEL ACCURACY : {accuracy * 100:.2f}%")
+print(" PHASE 9 COMPLETED")
 print("========================================")
